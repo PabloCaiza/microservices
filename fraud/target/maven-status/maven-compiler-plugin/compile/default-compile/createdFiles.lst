@@ -1,0 +1,6 @@
+com\quesito\fraud\FraudCheckHistoryRepository.class
+com\quesito\fraud\FraudCheckHistoryService.class
+com\quesito\fraud\FraudCheckHistory$FraudCheckHistoryBuilder.class
+com\quesito\fraud\FraudApplication.class
+com\quesito\fraud\FraudCheckHistory.class
+com\quesito\fraud\FraudController.class

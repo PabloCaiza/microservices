@@ -1,0 +1,8 @@
+com\quesito\notification\Notification$NotificationBuilder.class
+com\quesito\notification\rabbitmq\NotificationConsumer.class
+com\quesito\notification\NotificationController.class
+com\quesito\notification\NotificationApplication.class
+com\quesito\notification\Notification.class
+com\quesito\notification\NotificationService.class
+com\quesito\notification\NotificationRepository.class
+com\quesito\notification\NotificationConfig.class
