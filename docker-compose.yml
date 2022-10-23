@@ -38,6 +38,8 @@ services:
       - "9411:9411"
       # Uncomment if you set SCRIBE_ENABLED=true
       # - 9410:9410
+    networks:
+      - spring
 
   rabbitmq:
     image: rabbitmq:3.9.11-management-alpine
@@ -45,10 +47,80 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - spring
+#  eureka-server:
+#    image: pjcaiza/eureka-server:latest
+#    container_name: eureka-server
+#    ports:
+#      - "8761:8761"
+#    depends_on:
+#      - zipkin
+#    networks:
+#      - spring
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#  apigw:
+#    image: pjcaiza/apigw:latest
+#    container_name: apigw
+#    ports:
+#      - "8083:8083"
+#    depends_on:
+#      - zipkin
+#      - eureka-server
+#    networks:
+#      - spring
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+  customer:
+    image: pjcaiza/customer:latest
+    container_name: customer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - zipkin
+      - rabbitmq
+      - postgres
+    networks:
+      - spring
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  fraud:
+    image: pjcaiza/fraud:latest
+    container_name: fraud
+    ports:
+      - "8081:8081"
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+    networks:
+      - spring
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  notification:
+    image: pjcaiza/notification:latest
+    container_name: notification
+    ports:
+      - "8082:8082"
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+    networks:
+      - spring
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
 
 networks:
   postgres:
     driver: bridge
+  spring:
+    driver: bridge
+
 
 volumes:
   postgres:
